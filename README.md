@@ -188,8 +188,8 @@ if __name__ == "__main__":
 # Definimos la clase MenuItem como la clase base para los elementos del menú
 class MenuItem:
     def __init__(self, name, price):
-        self.name = name  # Nombre del elemento del menú
-        self.price = price  # Precio del elemento del menú
+        self.name = name  # Nombre del elemento
+        self.price = price  # Precio del elemento
     
     # Método para calcular el precio total basado en la cantidad de elementos
     def total_price(self, number_of_items):
@@ -198,21 +198,22 @@ class MenuItem:
 
 # Clase MainCourse que hereda de MenuItem, representa los platos principales
 class MainCourse(MenuItem):
-    definition = "el plato principal"  # Definición en español
+    definition = "el plato principal"
     def __init__(self, name, price):
         super().__init__(name, price)  # Llama al constructor de la clase base
 
 
+
 # Clase Drinks que hereda de MenuItem, representa las bebidas
 class Drinks(MenuItem):
-    definition = "las bebidas"  # Definición en español
+    definition = "las bebidas"
     def __init__(self, name, price):
         super().__init__(name, price)  # Llama al constructor de la clase base
         
 
 # Clase Dessert que hereda de MenuItem, representa los postres
 class Dessert(MenuItem):
-    definition = "el postre"  # Definición en español
+    definition = "el postre"
     def __init__(self, name, price):
         super().__init__(name, price)  # Llama al constructor de la clase base
 
@@ -316,4 +317,45 @@ if __name__ == "__main__":
         else:
             bandera = True  # Continuar el ciclo
 ```
+### Diagrama
 
+```mermaid
+classDiagram
+direction TB
+    class MenuItem {
+	    +name: str
+	    +price: float
+	    +total_price(number_of_items)
+    }
+
+    class MainCourse {
+	    +definition: str
+    }
+
+    class Drinks {
+	    +definition: str
+    }
+
+    class Dessert {
+	    +definition: str
+    }
+
+    class Order {
+	    -main_course
+	    -drink
+	    -dessert
+	    -order_total_price
+	    -number_items_order
+	    +add_main_course(main_course, number_of_items)
+	    +add_drink(drink, number_of_items)
+	    +add_dessert(dessert, number_of_items)
+	    +get_total_price()
+    }
+
+    MenuItem <|-- MainCourse
+    MenuItem <|-- Drinks
+    MenuItem <|-- Dessert
+    Order o-- MainCourse
+    Order o-- Drinks
+    Order o-- Dessert
+```
